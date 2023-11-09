@@ -44,7 +44,6 @@ async function getList() {
     params
   })
   loading.value = false
-  console.log('list', res.rows)
   list.value = res.rows
   selected.value = [list.value[0]]
   params.total = res.total
