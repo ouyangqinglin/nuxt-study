@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {getFetchData} from "~/composables/request";
-const list = ref([])
+const list = ref([]), isOpen = ref(false)
 const selected = ref([])
 const toast = useToast()
 const columns = [
@@ -44,7 +44,7 @@ async function getList() {
     params
   })
   loading.value = false
-  console.log('list', res.rows)
+  console.log('list', res)
   list.value = res.rows
   selected.value = [list.value[0]]
   params.total = res.total
@@ -52,6 +52,7 @@ async function getList() {
 getList()
 function toastOpen() {
   toast.add({ title: 'Hello world!' })
+  isOpen.value = true
 }
 </script>
 
@@ -66,7 +67,7 @@ function toastOpen() {
       </UFormGroup>
     </UForm>
     <div class="flex justify-end">
-      <UButton @click="toastOpen" class="my-5">Button</UButton>
+      <UButton @click="toastOpen" class="my-5">新增</UButton>
     </div>
     <UTable :rows="list" :columns="columns" v-model="selected"
             :empty-state="{ icon: 'i-heroicons-circle-stack-20-solid', label: 'No Data.' }"
@@ -75,6 +76,20 @@ function toastOpen() {
     <div class="my-5 flex justify-end">
       <UPagination v-model="params.pageNum" :page-count="params.pageSize" :total="params.total" />
     </div>
+
+    <UModal v-model="isOpen">
+      <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+        <template #header>
+          <Placeholder class="h-8" />
+        </template>
+
+        <Placeholder class="h-32" />
+
+        <template #footer>
+          <Placeholder class="h-8" />
+        </template>
+      </UCard>
+    </UModal>
   </div>
 </template>
 

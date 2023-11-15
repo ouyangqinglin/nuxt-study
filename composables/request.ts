@@ -1,4 +1,3 @@
-// composables/getData.ts
 import type { LocationQuery } from 'vue-router';
 import type { NitroFetchRequest } from 'nitropack';
 import type { FetchOptions } from 'ofetch';
@@ -20,6 +19,7 @@ export async function getFetchData({ url, params, method = 'get' }: Params) {
     const query: QueryItem = route.query
 
     const config = useRuntimeConfig()
+    console.log('config', config)
     const token = useCookie('token')
     const headers = {}
     if (token.value) headers['Authorization'] = 'Bearer ' + token.value['token']
